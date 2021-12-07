@@ -38,6 +38,9 @@ class UserTest {
 
     @Test
     public void right_input() {
+        //TODO
+        // Faire un meilleur test
+
         User userToTest = new User("test@test.et", "Test", "FR",
             User.Weather.WARMER, 20);
 
