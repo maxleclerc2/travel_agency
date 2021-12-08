@@ -4,6 +4,7 @@
 
 # Maven
 target/
+cache/
 
 # MacOS
 .DS_Store

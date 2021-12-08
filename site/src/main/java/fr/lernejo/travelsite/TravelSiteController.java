@@ -1,38 +1,44 @@
 package fr.lernejo.travelsite;
 
+import fr.lernejo.travelsite.prediction.PredictionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class TravelSiteController {
+    private final PredictionService service;
     List<User> userList = new ArrayList<>();
-    List<Travel> travelList = new ArrayList<>();
+
+    public TravelSiteController(PredictionService service) {
+        this.service = service;
+    }
 
     @PostMapping("/api/inscription")
     public void inscription(@RequestBody User newUser) {
         userList.add(newUser);
     }
 
-    /*
-    @GetMapping("/api/usersTEST")
-    public List<User> getUserList() {
-        return userList;
-    }
-    */
-
     @GetMapping("/api/travels")
     @ResponseBody
     public List<Travel> getUserTravels(@RequestParam String userName) {
+        List<Travel> travelList = new LinkedList<>();
+        Set<Travel> travelSet = service.callApi();
+
         for (User userRegistered: userList) {
-            /*
             if (userRegistered.userName().equals(userName)) {
-                travelList.add(new Travel("Caribbean", 32.4));
-                travelList.add(new Travel("Australia", 35.1));
+                for (Travel travel: travelSet) {
+                    if (userRegistered.weatherExpectation().equals(User.Weather.COLDER) &&
+                        travel.temperature() < userRegistered.minimumTemperatureDistance()) travelList.add(travel);
+                    else if (userRegistered.weatherExpectation().equals(User.Weather.WARMER) &&
+                        travel.temperature() > userRegistered.minimumTemperatureDistance()) travelList.add(travel);
+                }
             }
-            */
         }
+
         return travelList;
     }
 }

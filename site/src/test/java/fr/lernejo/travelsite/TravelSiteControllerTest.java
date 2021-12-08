@@ -28,7 +28,7 @@ class TravelSiteControllerTest {
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-    public static String asJsonString(final Object obj) {
+    private String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {
@@ -40,6 +40,38 @@ class TravelSiteControllerTest {
     public void travel_response_ok() throws Exception {
         mvc
             .perform(MockMvcRequestBuilders.get("/api/travels?userName=test"))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void travel_colder() throws Exception {
+        User newUser = new User("test@test.et", "Test", "FR",
+            User.Weather.COLDER, 20);
+
+        mvc
+            .perform(MockMvcRequestBuilders.post("/api/inscription")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(newUser)))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+
+        mvc
+            .perform(MockMvcRequestBuilders.get("/api/travels?userName=Test"))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void travel_warmer() throws Exception {
+        User newUser = new User("test@test.et", "Test", "FR",
+            User.Weather.WARMER, 20);
+
+        mvc
+            .perform(MockMvcRequestBuilders.post("/api/inscription")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(newUser)))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+
+        mvc
+            .perform(MockMvcRequestBuilders.get("/api/travels?userName=Test"))
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

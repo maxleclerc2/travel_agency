@@ -17,12 +17,12 @@ public class PredictionController {
     @GetMapping("/api/temperature")
     @ResponseBody
     public Prediction getTemperature(@RequestParam String country) {
-        List<Temperature> temperaturesList = new ArrayList<>();
+        List<Prediction.Temperature> temperaturesList = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
             LocalDate date = LocalDate.now().minusDays(i);
             temperaturesList.add(
-                new Temperature(
+                new Prediction.Temperature(
                     date,
                     service.getTemperature(country)
                 )
