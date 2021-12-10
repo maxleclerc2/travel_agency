@@ -35,33 +35,4 @@ class UserTest {
             .isThrownBy(() -> new User("test@test.et", "Test", "FR",
                 User.Weather.COLDER, 45));
     }
-
-    @Test
-    public void right_input() {
-        //TODO
-        // Faire un meilleur test
-
-        User userToTest = new User("test@test.et", "Test", "FR",
-            User.Weather.WARMER, 20);
-
-        Assertions.assertThat(userToTest.userEmail())
-            .as("Email")
-            .isEqualTo("test@test.et");
-
-        Assertions.assertThat(userToTest.userName())
-            .as("Name")
-            .isEqualTo("Test");
-
-        Assertions.assertThat(userToTest.userCountry())
-            .as("Country")
-            .isEqualTo("FR");
-
-        Assertions.assertThat(userToTest.weatherExpectation())
-            .as("Weather")
-            .isEqualTo(User.Weather.WARMER);
-
-        Assertions.assertThat(userToTest.minimumTemperatureDistance())
-            .as("Temperature")
-            .isEqualTo(20);
-    }
 }

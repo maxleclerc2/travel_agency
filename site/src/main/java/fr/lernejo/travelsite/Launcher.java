@@ -3,7 +3,6 @@ package fr.lernejo.travelsite;
 import fr.lernejo.travelsite.prediction.PredictionAPI;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +22,7 @@ public class Launcher {
 
     @Bean
     PredictionAPI predictionClient() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient.Builder()
             .cache(createCache())
             .addNetworkInterceptor(createInterceptor())
             .build();

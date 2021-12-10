@@ -21,17 +21,9 @@ public class PredictionController {
 
         for (int i = 0; i < 2; i++) {
             LocalDate date = LocalDate.now().minusDays(i);
-            temperaturesList.add(
-                new Prediction.Temperature(
-                    date,
-                    service.getTemperature(country)
-                )
-            );
+            temperaturesList.add(new Prediction.Temperature(date, service.getTemperature(country)));
         }
 
-        return new Prediction(
-            country,
-            temperaturesList
-        );
+        return new Prediction(country, temperaturesList);
     }
 }
