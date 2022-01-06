@@ -24,7 +24,6 @@ public class PredictionService {
     public Set<Travel> callApi() {
         Set<Travel> travelSet = new HashSet<>();
         String content;
-
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("countries.txt");
         try {
             content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
@@ -33,15 +32,12 @@ public class PredictionService {
             return travelSet;
         }
         Stream<String> lines = content.lines();
-
         lines.forEach(country -> travelSet.add(getTravel(country)));
-
         return travelSet;
     }
 
     private Travel getTravel(String country) {
         double mean = 0;
-
         try {
             Prediction prediction = contactApi(country);
 
@@ -52,13 +48,11 @@ public class PredictionService {
         } catch (CantConnectToApiException e) {
             System.out.println(e.getMessage());
         }
-
         return new Travel(country, mean);
     }
 
     private Prediction contactApi(String country) throws CantConnectToApiException {
         Call<Prediction> call = predictionAPI.getPrediction(country);
-
         try {
             return call.execute().body();
         } catch (IOException e) {

@@ -52,7 +52,7 @@ class TravelSiteControllerTest {
     public void travel_colder() throws Exception {
         createMockServerClient();
 
-        User newUser = new User("test@test.et", "Test", "FR",
+        User newUser = new User("test@test.et", "Test", "France",
             User.Weather.COLDER, 20);
 
         mvc
@@ -70,7 +70,7 @@ class TravelSiteControllerTest {
     public void travel_warmer() throws Exception {
         createMockServerClient();
 
-        User newUser = new User("test@test.et", "Test", "FR",
+        User newUser = new User("test2@test.et", "Test2", "France",
             User.Weather.WARMER, 10);
 
         mvc
@@ -80,7 +80,7 @@ class TravelSiteControllerTest {
             .andExpect(MockMvcResultMatchers.status().isOk());
 
         mvc
-            .perform(MockMvcRequestBuilders.get("/api/travels?userName=Test"))
+            .perform(MockMvcRequestBuilders.get("/api/travels?userName=Test2"))
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
