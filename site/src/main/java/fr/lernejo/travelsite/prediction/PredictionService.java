@@ -37,7 +37,7 @@ public class PredictionService {
     }
 
     private Travel getTravel(String country) {
-        double mean = 0;
+        double mean = -10.0;
         try {
             Prediction prediction = contactApi(country);
 
